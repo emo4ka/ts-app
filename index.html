@@ -1,13 +1,83 @@
-<input type="text" id="search" placeholder="Type a word...">
-<button onclick="searchText()">Search</button>
-<p id="output"></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text Search Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      background-color: #f4f4f4;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+    }
+    #chat {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .bot {
+      color: #444;
+      margin-bottom: 10px;
+    }
+    .user {
+      color: #0077cc;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Text Search Chatbot</h2>
 
-<script>
-  const data = "This is absolute cinema. CHOTAM! Bro was not cooking.";
+  <label for="userInput">Type something:</label>
+  <input type="text" id="userInput" placeholder="Say hi, venom, bye, etc.">
+  <button onclick="handleInput()">Send</button>
 
-  function searchText() {
-    const word = document.getElementById("search").value.toLowerCase();
-    const result = data.replaceAll(word, `*${word}*`);
-    document.getElementById("output").innerText = result;
-  }
-</script>
+  <label for="searchInput">Search in text:</label>
+  <input type="text" id="searchInput" placeholder="Enter word to highlight">
+  <button onclick="highlightWord()">Highlight</button>
+
+  <div id="chat"></div>
+
+  <script>
+    const textData = "This is absolute cinema. CHOTAM! Bro was not cooking.";
+    let currentText = textData;
+
+    function handleInput() {
+      const input = document.getElementById('userInput').value.toLowerCase();
+      const chat = document.getElementById('chat');
+
+      chat.innerHTML += `<div class="user">You: ${input}</div>`;
+
+      if (input.includes("hi")) {
+        chat.innerHTML += `<div class="bot">Bot: salam</div>`;
+      } else if (input.includes("venom")) {
+        chat.innerHTML += `<div class="bot">Bot: absolute cinema</div>`;
+      } else if (input.includes("bye")) {
+        chat.innerHTML += `<div class="bot">Bot: o7</div>`;
+      } else {
+        const cleaned = input.replace(/[!?]/g, "");
+        chat.innerHTML += `<div class="bot">Bot: You said '${cleaned}'. That's so sigma.</div>`;
+      }
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function highlightWord() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const highlighted = currentText.replaceAll(
+        new RegExp(search, "gi"),
+        (match) => `<mark>${match}</mark>`
+      );
+      document.getElementById('chat').innerHTML += `<div class="bot">Highlighted: ${highlighted}</div>`;
+    }
+  </script>
+</body>
+</html>
