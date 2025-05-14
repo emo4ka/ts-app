@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Text Search App</title>
-</head>
-<body>
-  <h1>Python Text Search Application</h1>
-  <p>This is a fun console-based app written in Python that can:</p>
-  <ul>
-    <li>Chat with you in a brainrotted way</li>
-    <li>Highlight searched words</li>
-    <li>Use logical operators</li>
-    <li>Binary search words</li>
-  </ul>
-  <p>Source code available below:</p>
-  <a href="main.py" download>Download main.py</a>
-</body>
-</html>
+<input type="text" id="search" placeholder="Type a word...">
+<button onclick="searchText()">Search</button>
+<p id="output"></p>
+
+<script>
+  const data = "This is absolute cinema. CHOTAM! Bro was not cooking.";
+
+  function searchText() {
+    const word = document.getElementById("search").value.toLowerCase();
+    const result = data.replaceAll(word, `*${word}*`);
+    document.getElementById("output").innerText = result;
+  }
+</script>
